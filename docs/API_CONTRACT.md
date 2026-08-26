@@ -17,6 +17,23 @@ TBD
 
 ---
 
+## Health
+
+### GET /api/health
+
+Purpose:
+Confirm that the backend process is running.
+
+Response:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+---
+
 ## Profile
 
 ### POST /api/profile
