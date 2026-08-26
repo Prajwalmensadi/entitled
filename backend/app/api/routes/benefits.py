@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.db.dependencies import get_db
-from app.schemas.scheme import SchemeResponse
-from app.services.scheme import get_scheme, list_schemes
+from app.schemas.scheme import SchemeDocumentsResponse, SchemeResponse
+from app.services.scheme import get_scheme, get_scheme_documents, list_schemes
 
 router = APIRouter(tags=["benefits"])
 
@@ -28,3 +28,23 @@ def get_benefit(scheme_id: str, db: Session = Depends(get_db)) -> SchemeResponse
             detail="Scheme not found",
         )
     return scheme
+
+
+@router.get(
+    "/benefits/{scheme_id}/documents",
+    response_model=SchemeDocumentsResponse,
+)
+def get_benefit_documents(
+    scheme_id: str,
+    db: Session = Depends(get_db),
+) -> SchemeDocumentsResponse:
+    """Return canonical document requirements for one scheme."""
+
+    scheme_documents = get_scheme_documents(db, scheme_id)
+    if scheme_documents is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Scheme not found",
+        )
+    returned_scheme_id, documents = scheme_documents
+    return SchemeDocumentsResponse(scheme_id=returned_scheme_id, documents=documents)

@@ -82,6 +82,12 @@
           "name": "Demo student record",
           "required": true,
           "notes": "Synthetic prototype document requirement."
+        },
+        {
+          "document_id": "demo-supporting-note",
+          "name": "Demo supporting note",
+          "required": false,
+          "notes": "Optional synthetic prototype document."
         }
       ],
       "deadline": {

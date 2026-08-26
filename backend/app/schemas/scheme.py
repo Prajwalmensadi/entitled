@@ -149,3 +149,10 @@ class SchemeResponse(BaseModel):
     source: SourceReference
     last_verified: date
     demo_status: str
+
+
+class SchemeDocumentsResponse(BaseModel):
+    """Canonical document requirements for one scheme."""
+
+    scheme_id: str
+    documents: list[RequiredDocument]

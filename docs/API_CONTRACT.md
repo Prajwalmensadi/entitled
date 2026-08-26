@@ -160,6 +160,12 @@ Example response:
         "name": "Demo student record",
         "required": true,
         "notes": "Synthetic prototype document requirement."
+      },
+      {
+        "document_id": "demo-supporting-note",
+        "name": "Demo supporting note",
+        "required": false,
+        "notes": "Optional synthetic prototype document."
       }
     ],
     "deadline": {
@@ -219,6 +225,53 @@ Edge cases:
 - A scheme must be loaded through the explicit seed operation before it can be
   returned.
 - The response intentionally omits raw `eligibility_rules`.
+
+### GET /api/benefits/{scheme_id}/documents
+
+Purpose:
+Return the canonical document requirements declared by one seeded scheme.
+These are synthetic/demo requirements in the current prototype and are not
+documents supplied by a citizen for an application.
+
+Response schema:
+
+- `scheme_id`: stable scheme identifier.
+- `documents`: canonical array of `document_id`, `name`, `required`, and
+  optional `notes` values.
+
+Example response:
+
+```json
+{
+  "scheme_id": "demo-education-support-001",
+  "documents": [
+    {
+      "document_id": "demo-student-record",
+      "name": "Demo student record",
+      "required": true,
+      "notes": "Synthetic prototype document requirement."
+    },
+    {
+      "document_id": "demo-supporting-note",
+      "name": "Demo supporting note",
+      "required": false,
+      "notes": "Optional synthetic prototype document."
+    }
+  ]
+}
+```
+
+Errors:
+
+- `404 Not Found`: no scheme exists for the provided `scheme_id`.
+- `500 Internal Server Error`: unexpected application or database failure.
+
+Edge cases:
+
+- A scheme must be loaded through the explicit seed operation before document
+  requirements can be returned.
+- The endpoint returns the same canonical `required_documents` data used by the
+  scheme and does not expose `eligibility_rules`.
 
 ---
 
