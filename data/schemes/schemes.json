@@ -21,8 +21,8 @@
         "operator": "all",
         "rules": [
           {
-            "rule_id": "demo-education-level-present",
-            "field": "education_level",
+            "rule_id": "demo-course-present",
+            "field": "course",
             "operator": "exists",
             "reason": "Synthetic demo rule only; not an official eligibility requirement."
           }

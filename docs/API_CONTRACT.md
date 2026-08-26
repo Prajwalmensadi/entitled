@@ -34,6 +34,78 @@ Response:
 
 ---
 
+## Eligibility
+
+### POST /api/eligibility/check
+
+Purpose:
+Evaluate the canonical deterministic eligibility rules for a seeded scheme
+against an existing citizen profile. The endpoint does not use AI or an LLM to
+make the eligibility decision.
+
+Request:
+
+```json
+{
+  "profile_id": 1,
+  "scheme_id": "demo-education-support-001"
+}
+```
+
+Response schema:
+
+- `scheme_id`: stable scheme identifier.
+- `status`: one of `likely_eligible`, `likely_not_eligible`, or
+  `needs_more_information`.
+- `rule_results`: deterministic condition-level trace containing `rule_id`,
+  `field`, `operator`, `result`, and a deterministic reason.
+- `missing_information`: profile fields required by rules but not present.
+
+Example response:
+
+```json
+{
+  "scheme_id": "demo-education-support-001",
+  "status": "likely_eligible",
+  "rule_results": [
+    {
+      "rule_id": "demo-state-present",
+      "field": "state",
+      "operator": "exists",
+      "result": "passed",
+      "reason": "State information is present."
+    }
+  ],
+  "missing_information": []
+}
+```
+
+Status behavior:
+
+- `likely_eligible`: the rule tree passes with the available profile data.
+- `likely_not_eligible`: the rule tree fails with the available profile data.
+- `needs_more_information`: no determining pass/failure is possible because
+  one or more profile fields required by rules are missing.
+
+Errors:
+
+- `404 Not Found`: `{"detail": "Profile not found"}` when `profile_id` is
+  absent; `{"detail": "Scheme not found"}` when `scheme_id` is absent.
+- `422 Unprocessable Entity`: malformed request data, including an invalid
+  `profile_id` or an empty `scheme_id`.
+- `500 Internal Server Error`: unexpected application or database failure,
+  without implementation details.
+
+Edge cases:
+
+- The endpoint accepts only persisted `profile_id` and `scheme_id` references;
+  it does not accept an arbitrary profile object.
+- Raw scheme rules remain backend-owned and are read from the seeded scheme
+  record at evaluation time.
+- Missing information does not automatically make a citizen ineligible.
+
+---
+
 ## Benefits
 
 The benefits endpoints return synthetic/demo scheme data only in this slice.
