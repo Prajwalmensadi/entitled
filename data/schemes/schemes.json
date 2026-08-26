@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "schemes": [
+    {
+      "scheme_id": "demo-stem-support-002",
+      "scheme_name": "Demo STEM Support",
+      "category": "education_scholarship",
+      "geography": {
+        "level": "state",
+        "states": ["Demo State"],
+        "districts": []
+      },
+      "description": "Synthetic demo scheme for prototype testing; it is not an official government service or programme.",
+      "benefit": {
+        "type": "demo_support",
+        "summary": "Synthetic demonstration support for students in a prototype flow.",
+        "amount": null,
+        "frequency": null
+      },
+      "eligibility_rules": {
+        "operator": "all",
+        "rules": [
+          {
+            "rule_id": "demo-education-level-present",
+            "field": "education_level",
+            "operator": "exists",
+            "reason": "Synthetic demo rule only; not an official eligibility requirement."
+          }
+        ]
+      },
+      "required_documents": [
+        {
+          "document_id": "demo-enrolment-record",
+          "name": "Demo enrolment record",
+          "required": true,
+          "notes": "Synthetic prototype document requirement."
+        }
+      ],
+      "deadline": {
+        "type": "not_announced",
+        "date": null,
+        "notes": "Synthetic demo data."
+      },
+      "source": {
+        "reference_type": "synthetic_demo",
+        "name": "Entitled prototype seed data",
+        "url": null
+      },
+      "last_verified": "2026-08-26",
+      "demo_status": "demo_simplified"
+    },
+    {
+      "scheme_id": "demo-education-support-001",
+      "scheme_name": "Demo Education Support",
+      "category": "education_scholarship",
+      "geography": {
+        "level": "state",
+        "states": ["Demo State"],
+        "districts": []
+      },
+      "description": "Synthetic demo scheme for prototype testing; it is not an official government service or programme.",
+      "benefit": {
+        "type": "demo_support",
+        "summary": "Synthetic demonstration support for students in a prototype flow.",
+        "amount": null,
+        "frequency": null
+      },
+      "eligibility_rules": {
+        "operator": "all",
+        "rules": [
+          {
+            "rule_id": "demo-state-present",
+            "field": "state",
+            "operator": "exists",
+            "reason": "Synthetic demo rule only; not an official eligibility requirement."
+          }
+        ]
+      },
+      "required_documents": [
+        {
+          "document_id": "demo-student-record",
+          "name": "Demo student record",
+          "required": true,
+          "notes": "Synthetic prototype document requirement."
+        }
+      ],
+      "deadline": {
+        "type": "rolling",
+        "date": null,
+        "notes": "Synthetic demo data."
+      },
+      "source": {
+        "reference_type": "synthetic_demo",
+        "name": "Entitled prototype seed data",
+        "url": null
+      },
+      "last_verified": "2026-08-26",
+      "demo_status": "demo_simplified"
+    }
+  ]
+}
