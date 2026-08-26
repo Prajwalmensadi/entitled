@@ -4,7 +4,7 @@ from app.main import create_app
 
 
 def test_health_returns_ok() -> None:
-    client = TestClient(create_app())
+    client = TestClient(create_app(database_url="sqlite:///:memory:"))
 
     response = client.get("/api/health")
 

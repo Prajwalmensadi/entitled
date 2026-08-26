@@ -2,15 +2,14 @@
 
 from dataclasses import dataclass
 from os import getenv
-from typing import Optional
-
+DEFAULT_DATABASE_URL = "sqlite:///./entitled.db"
 
 @dataclass(frozen=True)
 class Settings:
     """Runtime settings for the backend foundation."""
 
     app_env: str
-    database_url: Optional[str]
+    database_url: str
 
 
 def get_settings() -> Settings:
@@ -18,5 +17,5 @@ def get_settings() -> Settings:
 
     return Settings(
         app_env=getenv("APP_ENV", "development"),
-        database_url=getenv("DATABASE_URL") or None,
+        database_url=getenv("DATABASE_URL") or DEFAULT_DATABASE_URL,
     )

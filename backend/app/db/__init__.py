@@ -1,1 +1,1 @@
-"""Database configuration and persistence modules will live here."""
+"""Database configuration and persistence modules."""
