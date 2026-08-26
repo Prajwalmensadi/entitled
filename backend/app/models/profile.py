@@ -1,11 +1,14 @@
 """Citizen profile persistence model."""
 
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Boolean, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.application import Application
 
 
 class Profile(Base):
@@ -24,3 +27,4 @@ class Profile(Base):
     category: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     gender: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     disability_status: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
+    applications: Mapped[list["Application"]] = relationship(back_populates="profile")

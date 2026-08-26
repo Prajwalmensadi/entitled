@@ -349,3 +349,32 @@ Edge cases:
 - Optional text containing only whitespace is stored as `null`.
 - This endpoint creates a new profile; profile update behavior is not part of
   this slice.
+---
+
+## Applications
+
+Applications are simulated prototype applications. They are not submitted to a real government system.
+
+### POST /api/applications
+
+Create a validated draft application.
+
+The backend verifies:
+- the profile exists
+- the scheme exists
+- the profile is currently likely eligible
+- all provided document IDs belong to the scheme
+- all required scheme documents are provided
+- no existing application exists for the same profile and scheme
+
+Request:
+
+```json
+{
+  "profile_id": 1,
+  "scheme_id": "demo-education-support-001",
+  "provided_document_ids": [
+    "demo-student-record"
+  ],
+  "application_data": {}
+}
