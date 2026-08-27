@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { Button } from "@/components/ui/Button";
 
 const states = [
   "Andhra Pradesh",
@@ -195,12 +196,9 @@ export default function ProfilePage() {
                 You can edit these details before continuing.
               </p>
 
-              <button
-                type="submit"
-                className="min-h-12 rounded-xl bg-[#173b2b] px-6 text-sm font-semibold text-white shadow-sm transition hover:bg-[#24553d] focus:outline-none focus:ring-2 focus:ring-[#173b2b] focus:ring-offset-2"
-              >
+              <Button type="submit">
                 Continue
-              </button>
+              </Button>
             </div>
           </div>
         </form>
