@@ -45,3 +45,22 @@ class ProfileResponse(ProfileCreate):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+
+
+class ProfileExtractionRequest(BaseModel):
+    """Natural-language input for non-persistent profile extraction."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    message: RequiredText
+
+
+class ProfileExtractionCandidate(ProfileCreate):
+    """Validated profile fields explicitly extracted from citizen input."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    age: Optional[StrictInt] = Field(default=None, ge=0, le=150)
+    state: Optional[RequiredText] = None
+    education_level: Optional[RequiredText] = None
+    family_income: Optional[StrictInt] = Field(default=None, ge=0)

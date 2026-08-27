@@ -349,6 +349,63 @@ Edge cases:
 - Optional text containing only whitespace is stored as `null`.
 - This endpoint creates a new profile; profile update behavior is not part of
   this slice.
+
+---
+
+## AI profile extraction
+
+### POST /api/ai/profile-extraction
+
+Purpose:
+
+Extract a validated, non-persistent profile candidate from a citizen's
+natural-language message. This bounded AI assistance does not create or update
+a profile, determine eligibility, recommend schemes, or submit an application.
+
+Request:
+
+```json
+{
+  "message": "I'm 19, studying engineering in Karnataka, and my family income is 250000."
+}
+```
+
+Response:
+
+Returns `200 OK` with only candidate profile fields. Values are extracted only
+when explicitly stated or clearly provided; unavailable values are `null`.
+
+```json
+{
+  "age": 19,
+  "state": "Karnataka",
+  "district": null,
+  "education_level": null,
+  "course": "engineering",
+  "family_income": 250000,
+  "marks": null,
+  "category": null,
+  "gender": null,
+  "disability_status": null
+}
+```
+
+Errors:
+
+- `422 Unprocessable Entity`: `message` is missing, empty, or malformed.
+- `502 Bad Gateway`: the provider returned malformed or invalid structured
+  profile data; no candidate is fabricated.
+- `503 Service Unavailable`: AI profile extraction is not configured or the
+  provider is unavailable; no candidate is fabricated.
+
+Important edge cases:
+
+- The response is not persisted. Submit it separately to `POST /api/profile`
+  only after citizen review and completion of required fields.
+- This endpoint never performs eligibility evaluation. Eligibility remains a
+  separate deterministic backend operation.
+- The endpoint does not infer missing attributes, eligibility, scheme
+  requirements, or any government action.
 ---
 
 ## Applications
