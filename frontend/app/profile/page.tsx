@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
 
 const states = [
   "Andhra Pradesh",
@@ -68,15 +69,15 @@ export default function ProfilePage() {
               <span className="mt-1 block text-xs text-[#7a837d]">
                 Your current age
               </span>
-              <input
-                name="age"
-                type="number"
-                min="0"
-                max="120"
-                placeholder="19"
-                required
-                className="mt-3 min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white px-4 text-base outline-none transition placeholder:text-[#a0a8a2] focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-              />
+                <Input
+                  name="age"
+                  type="number"
+                  min="0"
+                  max="120"
+                  placeholder="19"
+                  required
+                  className="mt-3"
+                />
             </label>
 
             <label className="block">
@@ -127,13 +128,13 @@ export default function ProfilePage() {
               <span className="mt-1 block text-xs text-[#7a837d]">
                 What are you studying?
               </span>
-              <input
-                name="course"
-                type="text"
-                placeholder="Engineering"
-                required
-                className="mt-3 min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white px-4 text-base outline-none transition placeholder:text-[#a0a8a2] focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-              />
+                <Input
+                  name="course"
+                  type="text"
+                  placeholder="Engineering"
+                  required
+                  className="mt-3"
+                />
             </label>
 
             <label className="block">
@@ -145,14 +146,14 @@ export default function ProfilePage() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#68736c]">
                   ₹
                 </span>
-                <input
-                  name="family_income"
-                  type="number"
-                  min="0"
-                  placeholder="250000"
-                  required
-                  className="min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white pl-9 pr-4 text-base outline-none transition placeholder:text-[#a0a8a2] focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-                />
+                  <Input
+                    name="family_income"
+                    type="number"
+                    min="0"
+                    placeholder="250000"
+                    required
+                    className="pl-9"
+                  />
               </div>
             </label>
 
@@ -162,16 +163,16 @@ export default function ProfilePage() {
                 Most recent percentage
               </span>
               <div className="relative mt-3">
-                <input
-                  name="marks"
-                  type="number"
-                  min="0"
-                  max="100"
-                  step="0.01"
-                  placeholder="72"
-                  required
-                  className="min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white px-4 pr-10 text-base outline-none transition placeholder:text-[#a0a8a2] focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-                />
+                  <Input
+                    name="marks"
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    placeholder="72"
+                    required
+                    className="pr-10"
+                  />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#68736c]">
                   %
                 </span>
