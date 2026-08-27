@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 
 const states = [
   "Andhra Pradesh",
@@ -85,21 +86,22 @@ export default function ProfilePage() {
               <span className="mt-1 block text-xs text-[#7a837d]">
                 Where you currently live
               </span>
-              <select
-                name="state"
-                required
-                defaultValue=""
-                className="mt-3 min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white px-4 text-base outline-none transition focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-              >
-                <option value="" disabled>
-                  Select your state
-                </option>
-                {states.map((state) => (
-                  <option key={state} value={state}>
-                    {state}
+                <Select
+                  name="state"
+                  required
+                  defaultValue=""
+                  className="mt-3"
+                >
+                  <option value="" disabled>
+                    Select your state
                   </option>
-                ))}
-              </select>
+
+                  {states.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </Select>
             </label>
 
             <label className="block">
@@ -107,20 +109,21 @@ export default function ProfilePage() {
               <span className="mt-1 block text-xs text-[#7a837d]">
                 Your current level of study
               </span>
-              <select
-                name="education_level"
-                required
-                defaultValue=""
-                className="mt-3 min-h-12 w-full rounded-xl border border-[#ccd5ce] bg-white px-4 text-base outline-none transition focus:border-[#2f7652] focus:ring-2 focus:ring-[#dcebe1]"
-              >
-                <option value="" disabled>
-                  Select education level
-                </option>
-                <option value="secondary">Secondary</option>
-                <option value="undergraduate">Undergraduate</option>
-                <option value="postgraduate">Postgraduate</option>
-                <option value="other">Other</option>
-              </select>
+                <Select
+                  name="education_level"
+                  required
+                  defaultValue=""
+                  className="mt-3"
+                >
+                  <option value="" disabled>
+                    Select education level
+                  </option>
+
+                  <option value="secondary">Secondary</option>
+                  <option value="undergraduate">Undergraduate</option>
+                  <option value="postgraduate">Postgraduate</option>
+                  <option value="other">Other</option>
+                </Select>
             </label>
 
             <label className="block">
