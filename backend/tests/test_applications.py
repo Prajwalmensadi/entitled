@@ -345,6 +345,33 @@ def test_submit_changes_draft_to_submitted(
     assert body["submitted_at"] is not None
 
 
+def test_submitted_application_is_trackable_in_list_and_detail(
+    client: TestClient,
+) -> None:
+    profile_id = setup_flow(client)
+    created = create_valid_application(client, profile_id)
+
+    submit_response = client.post(
+        f"/api/applications/{created['application_id']}/submit"
+    )
+    assert submit_response.status_code == 200
+
+    list_response = client.get(
+        "/api/applications",
+        params={"profile_id": profile_id},
+    )
+    assert list_response.status_code == 200
+    detail_response = client.get(
+        f"/api/applications/{created['application_id']}"
+    )
+    assert detail_response.status_code == 200
+
+    for response_body in (list_response.json()[0], detail_response.json()):
+        assert response_body["status"] == "submitted"
+        assert response_body["created_at"]
+        assert response_body["submitted_at"] is not None
+
+
 def test_repeated_submit_returns_409(
     client: TestClient,
 ) -> None:

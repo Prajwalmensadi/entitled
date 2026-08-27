@@ -353,13 +353,24 @@ Edge cases:
 
 ## Applications
 
-Applications are simulated prototype applications. They are not submitted to a real government system.
+Applications are simulated prototype applications. They are not submitted to a
+real government system. `application_id` is the public tracking identifier;
+the internal database ID is never exposed.
+
+All application timestamps are UTC ISO-8601 datetime values. The only
+application statuses are `draft` and `submitted`. A `submitted` status means
+the prototype simulated submission successfully; it does **not** mean a real
+government submission occurred. The frontend must render the backend-provided
+status and timestamps and must not invent either.
 
 ### POST /api/applications
 
-Create a validated draft application.
+Purpose:
+
+Create a validated `draft` application.
 
 The backend verifies:
+
 - the profile exists
 - the scheme exists
 - the profile is currently likely eligible
@@ -378,3 +389,205 @@ Request:
   ],
   "application_data": {}
 }
+```
+
+Response:
+
+Returns `201 Created` and the public application representation. Its fields
+are `application_id`, `profile_id`, `scheme_id`, `status`,
+`application_data`, `provided_document_ids`, `created_at`, `updated_at`, and
+`submitted_at`.
+
+Example response:
+
+```json
+{
+  "application_id": "APP-4b9633d685d442c8a3576d880179499a",
+  "profile_id": 1,
+  "scheme_id": "demo-education-support-001",
+  "status": "draft",
+  "application_data": {},
+  "provided_document_ids": ["demo-student-record"],
+  "created_at": "2026-08-27T09:15:00Z",
+  "updated_at": "2026-08-27T09:15:00Z",
+  "submitted_at": null
+}
+```
+
+Errors:
+
+- `404 Not Found`: `Profile not found` or `Scheme not found`.
+- `409 Conflict`: the profile is not currently likely eligible, required
+  eligibility information is missing, or an application already exists for the
+  profile and scheme.
+- `422 Unprocessable Entity`: malformed request data, duplicate or empty
+  document IDs, unknown document IDs, or missing required document IDs.
+- `500 Internal Server Error`: unexpected application or database failure,
+  without implementation details.
+
+Important edge cases:
+
+- `submitted_at` is `null` for all drafts.
+- Only one application may exist for a profile and scheme pair.
+- Client input cannot set backend-owned identifiers, status, or timestamps.
+
+### GET /api/applications?profile_id={profile_id}
+
+Purpose:
+
+Return applications for one existing profile for the MVP Tracking screen.
+
+Request:
+
+The required `profile_id` query parameter is a positive integer.
+
+Example request:
+
+```text
+GET /api/applications?profile_id=1
+```
+
+Response:
+
+Returns `200 OK` with an array of the same public application representation
+returned by `POST /api/applications`. Results are ordered newest-first by
+creation time.
+
+Example response:
+
+```json
+[
+  {
+    "application_id": "APP-4b9633d685d442c8a3576d880179499a",
+    "profile_id": 1,
+    "scheme_id": "demo-education-support-001",
+    "status": "submitted",
+    "application_data": {},
+    "provided_document_ids": ["demo-student-record"],
+    "created_at": "2026-08-27T09:15:00Z",
+    "updated_at": "2026-08-27T09:20:00Z",
+    "submitted_at": "2026-08-27T09:20:00Z"
+  }
+]
+```
+
+Errors:
+
+- `404 Not Found`: `Profile not found` when `profile_id` does not exist.
+- `422 Unprocessable Entity`: a missing, non-integer, zero, or negative
+  `profile_id`.
+- `500 Internal Server Error`: unexpected application or database failure,
+  without implementation details.
+
+Important edge cases:
+
+- An existing profile with no applications returns `[]`.
+- `submitted_at` is `null` for draft entries.
+- The response is the tracking list; use each `application_id` as the public
+  identifier when navigating to its detail view.
+
+### GET /api/applications/{application_id}
+
+Purpose:
+
+Return one application by its public tracking identifier.
+
+Request:
+
+`application_id` is the public identifier returned when an application is
+created, for example `APP-4b9633d685d442c8a3576d880179499a`.
+
+Example request:
+
+```text
+GET /api/applications/APP-4b9633d685d442c8a3576d880179499a
+```
+
+Response:
+
+Returns `200 OK` with the same public application representation used by the
+application list.
+
+Example response:
+
+```json
+{
+  "application_id": "APP-4b9633d685d442c8a3576d880179499a",
+  "profile_id": 1,
+  "scheme_id": "demo-education-support-001",
+  "status": "submitted",
+  "application_data": {},
+  "provided_document_ids": ["demo-student-record"],
+  "created_at": "2026-08-27T09:15:00Z",
+  "updated_at": "2026-08-27T09:20:00Z",
+  "submitted_at": "2026-08-27T09:20:00Z"
+}
+```
+
+Errors:
+
+- `404 Not Found`: `Application not found` when no application has the given
+  public identifier.
+- `500 Internal Server Error`: unexpected application or database failure,
+  without implementation details.
+
+Important edge cases:
+
+- This endpoint accepts the public `application_id`, not an internal database
+  ID.
+- A draft application's `submitted_at` remains `null`.
+
+### POST /api/applications/{application_id}/submit
+
+Purpose:
+
+Perform the one-way simulated transition from `draft` to `submitted`.
+
+Request:
+
+This endpoint has no request body. It accepts an `application_id` path
+parameter.
+
+Example request:
+
+```text
+POST /api/applications/APP-4b9633d685d442c8a3576d880179499a/submit
+```
+
+Response:
+
+Returns `200 OK` with the submitted public application representation.
+
+Example response:
+
+```json
+{
+  "application_id": "APP-4b9633d685d442c8a3576d880179499a",
+  "profile_id": 1,
+  "scheme_id": "demo-education-support-001",
+  "status": "submitted",
+  "application_data": {},
+  "provided_document_ids": ["demo-student-record"],
+  "created_at": "2026-08-27T09:15:00Z",
+  "updated_at": "2026-08-27T09:20:00Z",
+  "submitted_at": "2026-08-27T09:20:00Z"
+}
+```
+
+Errors:
+
+- `404 Not Found`: `Application not found` when no application has the given
+  public identifier.
+- `409 Conflict`: the application has already been submitted, the profile is
+  no longer likely eligible, or required eligibility information is missing.
+- `422 Unprocessable Entity`: required documents are missing or stored
+  document IDs do not belong to the scheme when the draft is revalidated.
+- `500 Internal Server Error`: unexpected application or database failure,
+  without implementation details.
+
+Important edge cases:
+
+- Submission is simulated only; `submitted` does not indicate a real
+  government submission.
+- A successful submission sets `submitted_at` to the backend-generated UTC
+  timestamp and cannot be repeated.
