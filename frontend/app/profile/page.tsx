@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 const states = [
   "Andhra Pradesh",
@@ -59,10 +60,8 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-3xl border border-[#dfe5df] bg-white p-5 shadow-[0_16px_50px_rgba(23,59,43,0.06)] sm:p-8"
-        >
+        <Card padding="lg">
+          <form onSubmit={handleSubmit}>
           <div className="grid gap-6 sm:grid-cols-2">
             <label className="block">
               <span className="text-sm font-semibold">Age</span>
@@ -202,6 +201,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </form>
+       </Card>
       </div>
     </main>
   );
