@@ -8,13 +8,13 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const baseStyles =
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f7652] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
 
 const variantStyles: Record<ButtonVariant, string> = {
     primary:
-        "bg-[#173b2b] text-white hover:bg-[#24543d] active:bg-[#102a1f]",
+        "bg-olive-deep text-white shadow-sm hover:bg-olive active:bg-[#1d2d24]",
     secondary:
-        "border border-[#d5dbd6] bg-white text-[#173b2b] hover:bg-[#f2f5f2] active:bg-[#e9eee9]",
+        "border border-border bg-surface text-olive-deep hover:bg-sand active:bg-[#ebe3d8]",
 };
 
 export function Button({

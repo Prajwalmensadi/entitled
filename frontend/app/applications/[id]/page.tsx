@@ -17,7 +17,8 @@ const timeline = [
     },
     {
         title: "Under review",
-        description: "The application will be checked against the scheme requirements.",
+        description:
+            "The application will be checked against the scheme requirements.",
         date: "Not started",
         status: "upcoming",
     },
@@ -31,90 +32,122 @@ const timeline = [
 
 export default function ApplicationTrackerPage() {
     return (
-        <main className="min-h-screen bg-[#f7f8f5] text-[#17201a]">
-            <nav className="border-b border-[#e1e6e1] bg-white">
+        <main className="min-h-screen bg-cream text-foreground">
+            {/* Navigation */}
+            <nav className="sticky top-0 z-20 border-b border-border bg-cream/90 backdrop-blur-md">
                 <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
                     <Link
                         href="/"
-                        className="flex items-center gap-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2f7652] focus:ring-offset-2"
+                        className="group flex items-center gap-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                     >
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#173b2b] text-sm font-bold text-white">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-olive-deep text-sm font-bold text-white shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5">
                             E
                         </div>
 
-                        <span className="font-semibold">Entitled</span>
+                        <span className="font-semibold tracking-tight text-olive-deep">
+                            Entitled
+                        </span>
                     </Link>
 
-                    <span className="text-sm text-[#66716a]">
+                    <span className="rounded-full bg-sand px-3 py-1.5 text-xs font-semibold text-muted">
                         Application tracker
                     </span>
                 </div>
             </nav>
 
             <div className="mx-auto max-w-4xl px-5 py-8 sm:px-8 sm:py-12">
+                {/* Back */}
                 <Link
                     href="/benefits"
-                    className="inline-flex min-h-10 items-center rounded-lg text-sm font-medium text-[#2f7652] underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-[#2f7652] focus:ring-offset-2"
+                    className="group inline-flex min-h-10 items-center rounded-lg text-sm font-semibold text-olive transition-colors duration-200 hover:text-terracotta focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                 >
-                    ← Back to benefits
+                    <span className="mr-2 transition-transform duration-200 group-hover:-translate-x-1">
+                        ←
+                    </span>
+                    Back to benefits
                 </Link>
 
-                <header className="mt-8">
-                    <p className="text-sm font-medium text-[#66716a]">
-                        Application tracking
-                    </p>
+                {/* Hero */}
+                <header className="relative mt-7 overflow-hidden rounded-[2rem] bg-olive-deep px-6 py-8 text-white shadow-[0_24px_70px_rgba(38,58,46,0.15)] sm:px-9 sm:py-10">
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-terracotta/20 blur-3xl"
+                    />
 
-                    <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-                        Track your application
-                    </h1>
+                    <div className="relative max-w-3xl">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-lg text-[#e5c4b5] ring-1 ring-white/10">
+                            ✓
+                        </div>
 
-                    <p className="mt-3 max-w-2xl leading-7 text-[#68736c]">
-                        See the current status of your application and what happens next.
-                    </p>
+                        <p className="mt-6 text-sm font-semibold uppercase tracking-[0.14em] text-[#d8b09f]">
+                            Application tracking
+                        </p>
+
+                        <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
+                            Track your application
+                        </h1>
+
+                        <p className="mt-4 max-w-2xl leading-7 text-[#e4ebe4] sm:text-lg">
+                            See the current status of your application and what happens
+                            next.
+                        </p>
+                    </div>
                 </header>
 
-                <section className="mt-8 rounded-3xl border border-[#dfe5df] bg-white p-6 shadow-[0_16px_50px_rgba(23,59,43,0.06)] sm:p-8">
+                {/* Application summary */}
+                <section className="mt-6 rounded-[2rem] border border-border bg-surface p-6 shadow-[0_18px_55px_rgba(38,58,46,0.07)] sm:p-8">
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                         <div>
-                            <p className="text-xs font-medium uppercase tracking-wide text-[#7a837d]">
+                            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-light">
                                 Application
                             </p>
 
-                            <h2 className="mt-2 text-xl font-semibold">
+                            <h2 className="mt-2 text-xl font-semibold text-olive-deep sm:text-2xl">
                                 Engineering Student Scholarship
                             </h2>
 
-                            <p className="mt-2 text-sm text-[#68736c]">
+                            <p className="mt-2 text-sm text-muted">
                                 Application ID: EDU-2026-004271
                             </p>
                         </div>
 
-                        <span className="inline-flex w-fit items-center rounded-full bg-[#eaf4ed] px-4 py-2 text-sm font-semibold text-[#246044]">
+                        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#edf3e8] px-4 py-2 text-sm font-semibold text-olive">
+                            <span
+                                aria-hidden="true"
+                                className="h-2 w-2 rounded-full bg-olive"
+                            />
                             Application received
                         </span>
                     </div>
 
-                    <div className="mt-7 rounded-2xl border border-[#d6e4da] bg-[#f0f7f2] p-4">
-                        <p className="text-sm font-semibold text-[#24553d]">
+                    <div className="mt-7 rounded-2xl border border-[#d7dfcc] bg-[#f1f5eb] p-5">
+                        <p className="text-sm font-semibold text-olive-deep">
                             Your application is in progress
                         </p>
 
-                        <p className="mt-1 text-sm leading-6 text-[#4e6658]">
+                        <p className="mt-1 text-sm leading-6 text-muted">
                             Your application has been submitted successfully. Further
                             status updates will appear here.
                         </p>
                     </div>
                 </section>
 
-                <section className="mt-6 rounded-3xl border border-[#dfe5df] bg-white p-6 shadow-[0_16px_50px_rgba(23,59,43,0.06)] sm:p-8">
-                    <h2 className="text-2xl font-semibold tracking-tight">
-                        Application progress
-                    </h2>
+                {/* Timeline */}
+                <section className="mt-6 rounded-[2rem] border border-border bg-surface p-6 shadow-[0_18px_55px_rgba(38,58,46,0.07)] sm:p-8">
+                    <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-terracotta">
+                            Progress
+                        </p>
 
-                    <p className="mt-2 text-sm leading-6 text-[#68736c]">
-                        Follow the progress of your application from submission to
-                        decision.
-                    </p>
+                        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-olive-deep sm:text-3xl">
+                            Application progress
+                        </h2>
+
+                        <p className="mt-2 text-sm leading-6 text-muted">
+                            Follow the progress of your application from submission to
+                            decision.
+                        </p>
+                    </div>
 
                     <ol className="mt-8">
                         {timeline.map((item, index) => {
@@ -122,49 +155,59 @@ export default function ApplicationTrackerPage() {
                             const current = item.status === "current";
 
                             return (
-                                <li key={item.title} className="relative flex gap-5">
+                                <li
+                                    key={item.title}
+                                    className="relative flex gap-5"
+                                >
+                                    {/* Connecting line */}
                                     {index < timeline.length - 1 && (
                                         <div
                                             aria-hidden="true"
-                                            className={`absolute left-[15px] top-9 h-[calc(100%-8px)] w-px ${completed
-                                                    ? "bg-[#8bb49a]"
-                                                    : "bg-[#dfe5df]"
+                                            className={`absolute left-[19px] top-11 h-[calc(100%-12px)] w-0.5 ${completed
+                                                    ? "bg-olive/50"
+                                                    : "bg-border"
                                                 }`}
                                         />
                                     )}
 
+                                    {/* Timeline indicator */}
                                     <div
-                                        className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${completed
-                                                ? "bg-[#173b2b] text-white"
+                                        className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300 ${completed
+                                                ? "bg-olive-deep text-white shadow-sm"
                                                 : current
-                                                    ? "border-2 border-[#2f7652] bg-white text-[#246044]"
-                                                    : "bg-[#eef1ee] text-[#7a837d]"
+                                                    ? "border-2 border-olive bg-surface text-olive shadow-[0_0_0_5px_rgba(88,107,82,0.08)]"
+                                                    : "border border-border bg-cream text-muted-light"
                                             }`}
                                     >
                                         {completed ? "✓" : index + 1}
                                     </div>
 
-                                    <div className="pb-9">
-                                        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+                                    {/* Timeline content */}
+                                    <div className="pb-10">
+                                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
                                             <h3
-                                                className={`font-semibold ${current ? "text-[#173b2b]" : ""
+                                                className={`font-semibold ${current
+                                                        ? "text-olive-deep"
+                                                        : completed
+                                                            ? "text-olive"
+                                                            : "text-muted"
                                                     }`}
                                             >
                                                 {item.title}
                                             </h3>
 
                                             {current && (
-                                                <span className="w-fit rounded-full bg-[#eaf4ed] px-2.5 py-1 text-xs font-semibold text-[#246044]">
+                                                <span className="w-fit rounded-full bg-sand px-2.5 py-1 text-xs font-semibold text-terracotta">
                                                     Current
                                                 </span>
                                             )}
                                         </div>
 
-                                        <p className="mt-1 text-sm leading-6 text-[#68736c]">
+                                        <p className="mt-1 max-w-xl text-sm leading-6 text-muted">
                                             {item.description}
                                         </p>
 
-                                        <p className="mt-2 text-xs text-[#7a837d]">
+                                        <p className="mt-2 text-xs font-medium text-muted-light">
                                             {item.date}
                                         </p>
                                     </div>
@@ -174,38 +217,55 @@ export default function ApplicationTrackerPage() {
                     </ol>
                 </section>
 
-                <section className="mt-6 rounded-3xl border border-[#dfe5df] bg-white p-6 shadow-[0_16px_50px_rgba(23,59,43,0.06)] sm:p-8">
-                    <h2 className="text-xl font-semibold">Need help?</h2>
+                {/* Help */}
+                <section className="mt-6 rounded-[2rem] border border-border bg-surface p-6 shadow-[0_18px_55px_rgba(38,58,46,0.06)] sm:p-8">
+                    <p className="text-sm font-semibold uppercase tracking-[0.12em] text-terracotta">
+                        Application support
+                    </p>
 
-                    <p className="mt-2 text-sm leading-6 text-[#68736c]">
+                    <h2 className="mt-2 text-2xl font-semibold tracking-tight text-olive-deep">
+                        Need help?
+                    </h2>
+
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
                         Keep your application ID available if you need to refer to this
                         application later.
                     </p>
 
-                    <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                        <button
-                            type="button"
-                            className="min-h-11 rounded-xl border border-[#ccd5ce] bg-white px-5 text-sm font-semibold text-[#173b2b] transition hover:bg-[#f4f6f3] focus:outline-none focus:ring-2 focus:ring-[#2f7652] focus:ring-offset-2"
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                        {/* Go back to the application */}
+                        <Link
+                            href="/benefits/demo-engineering-scholarship/application"
+                            className="group inline-flex min-h-11 items-center justify-center rounded-xl border border-border bg-surface px-5 text-sm font-semibold text-olive-deep transition-all duration-200 hover:-translate-y-0.5 hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                         >
                             View application
-                        </button>
+                            <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">
+                                →
+                            </span>
+                        </Link>
 
                         <Link
                             href="/benefits"
-                            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#173b2b] px-5 text-sm font-semibold text-white transition hover:bg-[#24553d] focus:outline-none focus:ring-2 focus:ring-[#173b2b] focus:ring-offset-2"
+                            className="group inline-flex min-h-11 items-center justify-center rounded-xl bg-olive-deep px-5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-olive hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                         >
                             Explore more benefits
+                            <span className="ml-2 transition-transform duration-200 group-hover:translate-x-1">
+                                →
+                            </span>
                         </Link>
                     </div>
                 </section>
 
+                {/* Prototype note */}
                 <div
                     role="note"
-                    className="mt-6 rounded-2xl border border-[#e4dfc8] bg-[#faf8ec] p-4 text-sm leading-6 text-[#625c3e]"
+                    className="mt-6 rounded-2xl border border-[#d8d0bd] bg-sand p-4 text-sm leading-6 text-olive-deep"
                 >
-                    <strong className="font-semibold">Hackathon prototype:</strong>{" "}
-                    Application status shown here is demo data. The final status will
-                    come from the backend application/tracking service.
+                    <strong className="font-semibold">
+                        Prototype data:
+                    </strong>{" "}
+                    Application status shown here is demo data. The final status
+                    will come from the backend application/tracking service.
                 </div>
             </div>
         </main>

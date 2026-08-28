@@ -28,48 +28,83 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f8f5] text-[#17201a]">
-      <nav className="border-b border-[#e1e6e1] bg-white">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-4 sm:px-8">
+    <main className="min-h-screen bg-cream text-foreground">
+      {/* Header */}
+      <nav className="border-b border-border bg-surface/90 backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4 sm:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#173b2b] text-sm font-bold text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-olive-deep text-sm font-bold text-white shadow-sm">
               E
             </div>
-            <span className="font-semibold">Entitled</span>
+
+            <span className="text-base font-semibold tracking-tight">
+              Entitled
+            </span>
           </div>
 
-          <span className="text-sm text-[#66716a]">Step 1 of 4</span>
+          <div className="flex items-center gap-3">
+            <span className="hidden text-xs font-medium uppercase tracking-[0.12em] text-muted-light sm:block">
+              Your journey
+            </span>
+
+            <span className="rounded-full bg-sand px-3 py-1.5 text-sm font-semibold text-olive-deep">
+              1 of 4
+            </span>
+          </div>
         </div>
       </nav>
 
-      <div className="mx-auto max-w-3xl px-5 py-8 sm:px-8 sm:py-12">
-        <div className="mb-8">
-          <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-[#e2e8e3]">
-            <div className="h-full w-1/4 rounded-full bg-[#2f7652]" />
+      <div className="mx-auto max-w-4xl px-5 py-8 sm:px-8 sm:py-12">
+        {/* Progress */}
+        <div className="mb-10">
+          <div className="h-1.5 overflow-hidden rounded-full bg-[#ebe6dd]">
+            <div className="h-full w-1/4 rounded-full bg-olive" />
           </div>
 
-          <p className="mt-3 text-sm font-medium text-[#66716a]">
-            Your profile
+          <div className="mt-3 flex items-center justify-between">
+            <p className="text-sm font-semibold text-olive">
+              Your profile
+            </p>
+
+            <p className="text-xs text-muted-light">
+              About 2 minutes
+            </p>
+          </div>
+        </div>
+
+        {/* Introduction */}
+        <header className="mb-8 max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-terracotta">
+            Let&apos;s get started
           </p>
 
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="mt-3 text-4xl font-semibold tracking-[-0.03em] text-olive-deep sm:text-5xl">
             Tell us about yourself
           </h1>
 
-          <p className="mt-3 max-w-xl leading-7 text-[#68736c]">
+          <p className="mt-4 max-w-xl text-base leading-7 text-muted sm:text-lg">
             This helps us understand which benefits may be relevant to you.
             You can review everything before continuing.
           </p>
-        </div>
+        </header>
 
-        <Card padding="lg">
+        {/* Form */}
+        <Card
+          padding="lg"
+          className="border-border bg-surface shadow-[0_20px_60px_rgba(38,58,46,0.08)]"
+        >
           <form onSubmit={handleSubmit}>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <label className="block">
-              <span className="text-sm font-semibold">Age</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                Your current age
-              </span>
+            <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+              {/* Age */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  Age
+                </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  Your current age
+                </span>
+
                 <Input
                   name="age"
                   type="number"
@@ -79,13 +114,18 @@ export default function ProfilePage() {
                   required
                   className="mt-3"
                 />
-            </label>
+              </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold">State</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                Where you currently live
-              </span>
+              {/* State */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  State
+                </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  Where you currently live
+                </span>
+
                 <Select
                   name="state"
                   required
@@ -102,13 +142,18 @@ export default function ProfilePage() {
                     </option>
                   ))}
                 </Select>
-            </label>
+              </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold">Education level</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                Your current level of study
-              </span>
+              {/* Education */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  Education level
+                </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  Your current level of study
+                </span>
+
                 <Select
                   name="education_level"
                   required
@@ -124,13 +169,18 @@ export default function ProfilePage() {
                   <option value="postgraduate">Postgraduate</option>
                   <option value="other">Other</option>
                 </Select>
-            </label>
+              </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold">Course</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                What are you studying?
-              </span>
+              {/* Course */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  Course
+                </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  What are you studying?
+                </span>
+
                 <Input
                   name="course"
                   type="text"
@@ -138,17 +188,23 @@ export default function ProfilePage() {
                   required
                   className="mt-3"
                 />
-            </label>
+              </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold">Family income</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                Approximate annual family income
-              </span>
-              <div className="relative mt-3">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#68736c]">
-                  ₹
+              {/* Family income */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  Family income
                 </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  Approximate annual family income
+                </span>
+
+                <div className="relative mt-3">
+                  <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm font-medium text-olive">
+                    ₹
+                  </span>
+
                   <Input
                     name="family_income"
                     type="number"
@@ -157,15 +213,20 @@ export default function ProfilePage() {
                     required
                     className="pl-9"
                   />
-              </div>
-            </label>
+                </div>
+              </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold">Marks</span>
-              <span className="mt-1 block text-xs text-[#7a837d]">
-                Most recent percentage
-              </span>
-              <div className="relative mt-3">
+              {/* Marks */}
+              <label className="block">
+                <span className="text-sm font-semibold text-olive-deep">
+                  Marks
+                </span>
+
+                <span className="mt-1 block text-xs leading-5 text-muted-light">
+                  Most recent percentage
+                </span>
+
+                <div className="relative mt-3">
                   <Input
                     name="marks"
                     type="number"
@@ -176,36 +237,60 @@ export default function ProfilePage() {
                     required
                     className="pr-10"
                   />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#68736c]">
-                  %
-                </span>
-              </div>
-            </label>
-          </div>
 
-          <div className="mt-8 border-t border-[#e7ebe7] pt-6">
-            {submitted && (
-              <div
-                role="status"
-                className="mb-5 rounded-2xl border border-[#cfe1d4] bg-[#f0f7f2] p-4 text-sm text-[#24553d]"
-              >
-                Profile captured locally for the prototype. API submission is
-                not connected yet.
-              </div>
-            )}
-
-            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs leading-5 text-[#7a837d]">
-                You can edit these details before continuing.
-              </p>
-
-              <Button type="submit">
-                Continue
-              </Button>
+                  <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-olive">
+                    %
+                  </span>
+                </div>
+              </label>
             </div>
+
+            {/* Bottom section */}
+            <div className="mt-9 border-t border-border pt-6">
+              {submitted && (
+                <div
+                  role="status"
+                  className="mb-6 rounded-2xl border border-[#d7dfcc] bg-[#f1f5eb] p-4 text-sm leading-6 text-olive-deep"
+                >
+                  <span className="font-semibold">Profile saved.</span>{" "}
+                  This prototype is currently storing your profile locally.
+                  API submission will be connected later.
+                </div>
+              )}
+
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm font-medium text-olive-deep">
+                    Your information stays editable
+                  </p>
+
+                  <p className="mt-1 text-xs leading-5 text-muted-light">
+                    You can review these details before continuing.
+                  </p>
+                </div>
+
+                <Button type="submit">
+                  Continue
+                  <span aria-hidden="true" className="ml-2">
+                    →
+                  </span>
+                </Button>
+              </div>
+            </div>
+          </form>
+        </Card>
+
+        {/* Small reassurance */}
+        <div className="mt-6 flex items-start gap-3 px-1">
+          <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sand text-xs text-olive-deep">
+            ✓
           </div>
-        </form>
-       </Card>
+
+          <p className="text-xs leading-5 text-muted-light">
+            We&apos;ll use these details only to help identify relevant benefits
+            and eligibility information.
+          </p>
+        </div>
       </div>
     </main>
   );
