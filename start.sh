@@ -1,8 +1,13 @@
 #!/bin/sh
 set -e
 
-ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-PYTHON="$ROOT_DIR/backend/.venv/bin/python"
+ROOT_DIR="$(pwd)"
+
+if [ -x "$ROOT_DIR/backend/.venv/bin/python" ]; then
+  PYTHON="$ROOT_DIR/backend/.venv/bin/python"
+else
+  PYTHON="python3"
+fi
 
 cd "$ROOT_DIR/backend"
 
