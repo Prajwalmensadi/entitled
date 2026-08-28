@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbf8f2;
+  --foreground: #20251f;
+
+  --color-olive-deep: #263a2e;
+  --color-olive: #65784e;
+  --color-terracotta: #c86b4a;
+
+  --color-sand: #f4ede3;
+  --color-cream: #fbf8f2;
+  --color-surface: #ffffff;
+
+  --color-muted: #66716a;
+  --color-muted-light: #7a837d;
+  --color-border: #ded9cf;
+
+  --color-success-bg: #edf4ec;
+  --color-success-text: #496644;
+
+  --color-warning-bg: #faf0e8;
+  --color-warning-text: #8a4c35;
+
+  --gradient-brand: linear-gradient(135deg,
+      #263a2e 0%,
+      #65784e 65%,
+      #c86b4a 100%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-olive-deep: var(--color-olive-deep);
+  --color-olive: var(--color-olive);
+  --color-terracotta: var(--color-terracotta);
+
+  --color-sand: var(--color-sand);
+  --color-cream: var(--color-cream);
+  --color-surface: var(--color-surface);
+
+  --color-muted: var(--color-muted);
+  --color-muted-light: var(--color-muted-light);
+  --color-border: var(--color-border);
+
+  --color-success-bg: var(--color-success-bg);
+  --color-success-text: var(--color-success-text);
+
+  --color-warning-bg: var(--color-warning-bg);
+  --color-warning-text: var(--color-warning-text);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: #d8c5b8;
+  color: var(--color-olive-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
