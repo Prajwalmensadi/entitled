@@ -1,42 +1,27 @@
-import Link from "next/link";
+"use client";
 
-const demoBenefits = [
-    {
-        id: "demo-engineering-scholarship",
-        name: "Engineering Student Scholarship",
-        category: "Education support",
-        benefit: "Annual financial support",
-        description:
-            "A prototype scholarship example for demonstrating the benefit discovery experience.",
-        requirement: "Student profile and academic details",
-        deadline: "Deadline shown when available",
-        documents: "Documents shown after eligibility check",
-    },
-    {
-        id: "demo-merit-scholarship",
-        name: "Merit Scholarship for Students",
-        category: "Academic support",
-        benefit: "Scholarship assistance",
-        description:
-            "A synthetic benefit used to demonstrate how citizens can explore relevant support.",
-        requirement: "Academic information may be required",
-        deadline: "Deadline shown when available",
-        documents: "Documents shown after eligibility check",
-    },
-    {
-        id: "demo-student-support",
-        name: "Student Support Grant",
-        category: "Student support",
-        benefit: "Financial assistance",
-        description:
-            "A synthetic benefit example showing how different forms of education support can be presented simply.",
-        requirement: "Personal and education details",
-        deadline: "Deadline shown when available",
-        documents: "Documents shown after eligibility check",
-    },
-];
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { listBenefits, type Scheme } from "@/lib/api";
 
 export default function BenefitsPage() {
+    const [benefits, setBenefits] = useState<Scheme[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        listBenefits()
+            .then(setBenefits)
+            .catch((loadError: unknown) => {
+                setError(
+                    loadError instanceof Error
+                        ? loadError.message
+                        : "We could not load benefits. Please try again.",
+                );
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <main className="min-h-screen bg-cream text-foreground">
             {/* Navigation */}
@@ -90,7 +75,7 @@ export default function BenefitsPage() {
 
                         <div className="mt-7 flex flex-wrap gap-3">
                             <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/90 backdrop-blur-sm">
-                                {demoBenefits.length} benefits
+                                {benefits.length} benefits
                             </span>
 
                             <span className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/90 backdrop-blur-sm">
@@ -131,14 +116,26 @@ export default function BenefitsPage() {
                         </div>
 
                         <span className="text-sm font-medium text-muted-light">
-                            {demoBenefits.length} available
+                            {benefits.length} available
                         </span>
                     </div>
 
                     <div className="mt-6 grid gap-5 lg:grid-cols-2">
-                        {demoBenefits.map((benefit, index) => (
+                        {loading && (
+                            <p className="text-sm leading-6 text-muted">Loading available benefits…</p>
+                        )}
+
+                        {error && (
+                            <p role="alert" className="text-sm leading-6 text-[#8a4c35]">{error}</p>
+                        )}
+
+                        {!loading && !error && benefits.length === 0 && (
+                            <p className="text-sm leading-6 text-muted">No demo benefits are available right now.</p>
+                        )}
+
+                        {benefits.map((benefit, index) => (
                             <article
-                                key={benefit.id}
+                                key={benefit.scheme_id}
                                 className={`group flex h-full flex-col rounded-3xl border border-border bg-surface p-6 shadow-[0_14px_45px_rgba(38,58,46,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#c8cbbf] hover:shadow-[0_22px_55px_rgba(38,58,46,0.11)] sm:p-7 ${index === 0 ? "lg:col-span-2" : ""
                                     }`}
                             >
@@ -149,7 +146,7 @@ export default function BenefitsPage() {
                                         </span>
 
                                         <h3 className="mt-4 text-xl font-semibold tracking-tight text-olive-deep sm:text-2xl">
-                                            {benefit.name}
+                                            {benefit.scheme_name}
                                         </h3>
                                     </div>
 
@@ -162,7 +159,7 @@ export default function BenefitsPage() {
                                 </div>
 
                                 <p className="mt-4 font-semibold text-olive">
-                                    {benefit.benefit}
+                                    {benefit.benefit.summary}
                                 </p>
 
                                 <p className="mt-2 max-w-2xl leading-6 text-muted">
@@ -184,7 +181,7 @@ export default function BenefitsPage() {
                                             </p>
 
                                             <p className="mt-1 text-sm leading-5 text-muted">
-                                                {benefit.requirement}
+                                                Requirements are checked separately.
                                             </p>
                                         </div>
                                     </div>
@@ -203,7 +200,7 @@ export default function BenefitsPage() {
                                             </p>
 
                                             <p className="mt-1 text-sm leading-5 text-muted">
-                                                {benefit.deadline}
+                                                {benefit.deadline.date || benefit.deadline.type}
                                             </p>
                                         </div>
                                     </div>
@@ -222,7 +219,7 @@ export default function BenefitsPage() {
                                             </p>
 
                                             <p className="mt-1 text-sm leading-5 text-muted">
-                                                {benefit.documents}
+                                                {benefit.required_documents.length} listed
                                             </p>
                                         </div>
                                     </div>
@@ -234,7 +231,7 @@ export default function BenefitsPage() {
                                     </p>
 
                                     <Link
-                                        href={`/benefits/${benefit.id}`}
+                                        href={`/benefits/${benefit.scheme_id}`}
                                         className="group/button inline-flex min-h-11 items-center justify-center rounded-xl bg-olive-deep px-5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-olive focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
                                     >
                                         View details

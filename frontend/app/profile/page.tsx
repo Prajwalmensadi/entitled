@@ -1,10 +1,13 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { createProfile, type ProfileInput } from "@/lib/api";
+import { setStoredProfileId } from "@/lib/journey";
 
 const states = [
   "Andhra Pradesh",
@@ -21,10 +24,38 @@ const states = [
 
 export default function ProfilePage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const formData = new FormData(event.currentTarget);
+    const profile: ProfileInput = {
+      age: Number(formData.get("age")),
+      state: String(formData.get("state")),
+      education_level: String(formData.get("education_level")),
+      course: String(formData.get("course")) || null,
+      family_income: Number(formData.get("family_income")),
+      marks: Number(formData.get("marks")),
+    };
+
+    setLoading(true);
+    setError(null);
+    try {
+      const savedProfile = await createProfile(profile);
+      setStoredProfileId(savedProfile.id);
+      setSubmitted(true);
+      router.push("/benefits");
+    } catch (submissionError) {
+      setError(
+        submissionError instanceof Error
+          ? submissionError.message
+          : "We could not save your profile. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -253,8 +284,16 @@ export default function ProfilePage() {
                   className="mb-6 rounded-2xl border border-[#d7dfcc] bg-[#f1f5eb] p-4 text-sm leading-6 text-olive-deep"
                 >
                   <span className="font-semibold">Profile saved.</span>{" "}
-                  This prototype is currently storing your profile locally.
-                  API submission will be connected later.
+                  Your profile is ready for benefit discovery.
+                </div>
+              )}
+
+              {error && (
+                <div
+                  role="alert"
+                  className="mb-6 rounded-2xl border border-[#e7c9bd] bg-[#faf0e8] p-4 text-sm leading-6 text-[#8a4c35]"
+                >
+                  {error}
                 </div>
               )}
 
@@ -269,7 +308,7 @@ export default function ProfilePage() {
                   </p>
                 </div>
 
-                <Button type="submit">
+                <Button type="submit" loading={loading}>
                   Continue
                   <span aria-hidden="true" className="ml-2">
                     →
